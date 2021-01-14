@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1594750000436.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "EC1F41B4",
+    "lastKnownWriteTime" : 2484628535385879413,
+    "last_content_update" : 1594750000436,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "id" : "aadf732dfca2432dbf938019dcf20b59",
+        "name" : "all_unique_homes",
+        "title" : "all_unique_homes"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "object_explorer"
+}

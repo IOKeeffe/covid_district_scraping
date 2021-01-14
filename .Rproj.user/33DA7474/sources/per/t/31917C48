@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1566416328970.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1262072743",
+    "id" : "31917C48",
+    "lastKnownWriteTime" : 1566418173,
+    "last_content_update" : 1566418173577,
+    "path" : "C:/Users/aryaa/OneDrive/Documents/Children_at_Risk/magnet-scraping/scripts/scrape_001.R",
+    "project_path" : "scripts/scrape_001.R",
+    "properties" : {
+        "cursorPosition" : "93,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1594749618817.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2181525166",
+    "id" : "D2D8A35C",
+    "lastKnownWriteTime" : 1594750212,
+    "last_content_update" : 1594750212974,
+    "path" : "G:/NEW! Center for Social Measurement and Evaluation/Analysis/Rankings and Evaluations/Web Scraping/magnet-scraping/scripts/scrape_002.R",
+    "project_path" : "scripts/scrape_002.R",
+    "properties" : {
+        "cursorPosition" : "29,77",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

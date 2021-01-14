@@ -1,0 +1,218 @@
+###
+# Sara's Beginner R Script
+# For Alyssa's Fabulous Research Extravaganza
+###
+
+#See the notes section below for clarification on various items/topics in this file
+
+
+library(tidyverse)
+library(here)
+library(gtools)
+library(janitor)
+library(modelr)
+
+
+########################################################################################################
+
+###DATA CLEANING AND MANIPULATION
+
+
+#Merging/Stacking/Combining Data
+
+#The two most common types of commands for combining data I use in R is rbind and left_join. 
+# If you are just adding more observations and all variables are the same in each data set you 
+# will need to use the rbind or rbind.fill command. However if you want to combine data sets with different 
+# variables by a unique identifying ID, then you will most likely use left_join. These are not the 
+# only kinds of merges, but they are what I'm assuming you will use the most. For more information 
+# on what type of merge to use, visit: https://datascienceplus.com/combining-data-in-r-the-skill-of-merging-joining-and-stacking/
+
+#Merging/Stacking Example:
+
+#First load your datasets that you want to stack:
+
+elem17 <- read_csv(here("elem2017.csv")) %>% 
+  #now select the variables you want to keep for our analysis:
+  select(c(campus, cname, dname, CNTYNAME, camp.perf.score)) %>% 
+  #now make sure you change your variable names so they will match your second data sets variable names or it can't match
+  #Fun fact: if you aren't sure what the variable names are and want them in a list format, simply use the command: names(elem18)
+  reshape::rename(c(campus = "CAMPUS", 
+                    cname = "CNAME", 
+                    dname = "district", 
+                    CNTYNAME = "county")) %>%
+  #Now add a variable to indicate what year this data is from:
+  mutate(year = 2017)
+
+
+elem18 <- read_csv(here("elem2018.csv")) %>% 
+#Note - be sure to always use the command read_csv instead of read.csv - They seem like they do the same thing - but read_cvs is far less likely to cause factor related errors
+  select(c(CAMPUS, CNAME, district, county, camp.perf.score)) %>% 
+  mutate(year = 2018)
+
+
+#now you have your cleaned datasets so you can stack those bad boys
+
+elem17.18 <- rbind(elem17, elem18, by="CAMPUS") 
+  
+#TA-DAH!!!! You did it! Look at your beautiful creation
+
+view(elem17.18)
+
+#Look at you! You just straight up made a panel/longitudinal dataset! CONGRATS!!!
+
+
+#Now say you want to create a unique id for each individual observation in this dataset 
+# one option would be to create a combination of the id/year, 
+# to do this you could combine two variables/columns into one new variable: 
+
+elem17.18 <- elem17.18 %>% 
+unite(unique.ID, CAMPUS, year, remove=F) #if you wanted to drop the original variables you would set remove=T
+
+
+
+#Creating Dummy Variables and using If statements
+
+# Say you want to make a dummy variable for all of the Schools in the North Texas region so you can directly look at this group for analysis
+# Then let's make a dummy variable (or a binary variable) with 1 indicating that the school is in the DFW area and 0 indicating that it is not:
+
+elem17.18 <- elem17.18 %>% 
+  mutate(North.TX = ifelse(county == "COLLIN COUNTY", 1,
+                      ifelse(county == "DALLAS COUNTY", 1,
+                             ifelse(county == "DENTON COUNTY", 1,
+                                    ifelse(county == "ELLIS COUNTY", 1,
+                                           ifelse(county == "HUNT COUNTY", 1,
+                                                  ifelse(county == "JOHNSON COUNTY", 1,
+                                                         ifelse(county == "KAUFMAN COUNTY", 1,
+                                                                ifelse(county == "ROCKWALL COUNTY", 1,
+                                                                       ifelse(county == "TARRANT COUNTY", 1,0))))))))))
+
+#Now check how many 1 v. 0 you have:
+tabyl(elem17.18, North.TX)
+
+#NICE
+
+
+########################################################################################################
+
+#FOR ANALYSIS OF SNAPSHOT DATA 
+
+#How to run/conduct a basic Ordinary Least Squares Linear Regression (OLS Regression) in RStudio
+#The most common/basic/useful regression for researchers
+#If at all possible you want to use OLS in your research
+
+
+#Here is a sample:
+
+#first load dataset:
+
+ft_worth_detail <- read_csv(here("sample_ftworth_data.csv"))
+
+summary(OLS <-lm(overall.score.high ~ Econ.Dis, ft_worth_detail, na.action = na.omit))
+#Note in R's formula syntax, the dependent variable goes on the left of the ~ and the independent variable goes on the right
+
+#Check out your output in the console
+#The second number down in the "Estimate" Column, next to "Econ.Dis" is your coefficient!
+#p-value is in the bottom right corner ---> Remember the pvalue is like golf, the lower number the better! 
+#You want to have it at least under .05 to be considered statistically significant 
+
+
+#For more information on when and how best to utilize OLS Regression in Social Science Research see:
+#pages 19 - 22 of "Fundamentals of Statistics" notes &
+#All pages of "Learning to Use Regression Analysis" notes
+
+
+############################################################################################################
+
+#FOR ANALYSIS OF TIME SERIES DATA (ONE VARIABLE OVER TIME)
+
+#How to run/conduct Time Series Analysis in RStudio
+
+#
+
+
+
+#How to run/conduct Interupted Time Series Analysis in RStudio
+
+#
+
+
+
+
+#How to conduct Forecasting with Time Series data in RStudio
+
+#
+
+
+
+
+
+##For more information on when and how best to utilize the different types of Time Series Analysis see:
+#All pages of "Time Series Analysis" notes
+
+
+#######################################################################################################
+
+
+#FOR ANALYSIS OF PANEL DATA (MULTIPLE VARIABLES OVER TIME)
+
+#There are many ways to analyze panel data, but two of the most common regressions are Fixed Effect or Random Effect 
+# models so those will be shown here.
+
+
+#Fixed Effect Model
+
+#
+
+
+
+#Random Effect Model
+
+#
+
+
+
+
+
+##For more information on when and how best to utilize the different types of Regressions with Panel Data see:
+#All pages of "Panel Data Regression Models" notes
+
+
+#######################################################################################################
+
+# NOTES
+
+#Note 0: If you are wondering what these symbols are: %>% 
+# Fear not! It is called a pipe and it is your friend. This little dude acts as a connector between commands/operations. 
+
+
+#Note 1: Be sure you have the newest/most up to date version of R AND RStudio on your computer - you need
+# updated versions of both softwares to effectively operate RStudio.
+
+#Note 2: R requires you to download packages to use certain commands. Then you will need to access these
+# packages from your library each time you work on a project. Make sure you access all packages you plan to use
+# each time you open RStudio. Read more about this here: https://www.datacamp.com/community/tutorials/r-packages-guide
+
+#Note 3: to type a note that will not be run as script - use the # symbol at the beginning of the line
+
+#Note 4: This type of file is called an r script - it is what you need to manipulate data in R -
+# it is also very important to save all of the script you write with notes so people can replicate your work 
+# and if you need to start over for any reason, you won't want to kill yourself.
+
+#Note 5: It is generally good to start a project and use the here command to stay organized in your work. 
+# for more about the here command and how to use it, visit: https://github.com/jennybc/here_here
+# for more about projects, visit: https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects
+
+
+#Note 6: To better understand the outputs from the regressions above, see the presentation I sent titled "Interpreting R Outputs".
+
+#Note 7: Here is a really good resource explaining the different potential r packages you may need for projects :D
+# https://www.computerworld.com/article/2921176/great-r-packages-for-data-import-wrangling-visualization.html
+
+
+
+
+
+
+
+
+

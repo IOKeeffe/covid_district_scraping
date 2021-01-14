@@ -1,0 +1,32 @@
+{
+    "id": "3BA90570",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1610399889055.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "expression": "district_info",
+        "caption": "district_info",
+        "totalObservations": 1170,
+        "displayedObservations": 1170,
+        "variables": 3,
+        "cacheKey": "3255C781",
+        "object": "district_info",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=district_info&cache_key=3255C781&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 2314861393371609398,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1610399889055,
+    "read_only": false,
+    "read_only_alternatives": []
+}
